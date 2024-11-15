@@ -1,6 +1,6 @@
 <script setup>
 import { vMaska } from "maska/vue";
-import { reactive, ref, computed } from "vue";
+import { reactive, ref, computed, onMounted } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
 
@@ -23,15 +23,14 @@ onMounted(() => {
 
 const formattedCredentials = computed(() => {
   return {
-    phone: credentials.phone.replaceAll(" ", ""),,
+    phone: credentials.phone.replaceAll(" ", ""),
     login_code: credentials.login_code,
-
-  }
-})
+  };
+});
 
 const handleLogin = () => {
   axios
-    .post("http://localhost/api/login", formattedCredentials)
+    .post("http://localhost/api/login", formattedCredentials.value)
     .then((response) => {
       console.log(response.data);
       waitingOnVerification.value = true;
@@ -44,12 +43,12 @@ const handleLogin = () => {
 
 const handleVerification = () => {
   axios
-    .post("http://localhost/api/login/verify", formattedCredentials)
+    .post("http://localhost/api/login/verify", formattedCredentials.value)
     .then((response) => {
       console.log(response.data);
       localStorage.setItem("token", response.data);
       router.push({
-        name: "index",
+        name: "landing",
       });
     })
     .catch((error) => {
