@@ -6,6 +6,12 @@ const handleFindARide = () => {
     name: "location",
   });
 };
+
+const handleStartDriving = () => {
+  router.push({
+    name: "standby",
+  });
+};
 </script>
 <template>
   <div class="pt-16">
@@ -16,6 +22,7 @@ const handleFindARide = () => {
       <div class="bg-white px-4 py-5 sm:p-6">
         <div class="flex justify-between">
           <button
+            @click="handleStartDriving"
             class="rounded-md border border-transparent bg-black py-2 px-4 text-sm font-medium text-white"
           >
             Start driving

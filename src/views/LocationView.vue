@@ -1,6 +1,28 @@
 <script setup>
+import { useLocationStore } from "@/stores/location";
+import { useRouter } from "vue-router";
+const location = useLocationStore();
+const router = useRouter();
 const handleLocationChanged = (e) => {
-  console.log(e);
+  console.log("aaa", e);
+  location.$patch({
+    destination: {
+      name: e.name,
+      added: e.formatted_address,
+      geometry: {
+        lat: e.geometry.location.lat(),
+        lng: e.geometry.location.lng(),
+      },
+    },
+  });
+};
+
+const handleSelectLocation = () => {
+  if (location.destination.name !== "") {
+    router.push({
+      name: "map",
+    });
+  }
 };
 </script>
 <template>
@@ -22,6 +44,7 @@ const handleLocationChanged = (e) => {
       <div class="bg-gray-50 px-4 py-3 text-right sm:px-6">
         <button
           type="button"
+          @click.prevent="handleSelectLocation"
           class="rounded-md border border-transparent bg-black py-2 px-4 text-sm font-medium text-white"
         >
           Find a ride
