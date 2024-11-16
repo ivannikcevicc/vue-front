@@ -1,6 +1,9 @@
 <script setup>
 import { useRouter } from "vue-router";
+import http from "@/helpers/http"; // Ensure this matches your project's HTTP service setup
+
 const router = useRouter();
+
 const handleFindARide = () => {
   router.push({
     name: "location",
@@ -8,11 +11,25 @@ const handleFindARide = () => {
 };
 
 const handleStartDriving = () => {
-  router.push({
-    name: "standby",
-  });
+  http()
+    .get("/api/driver")
+    .then((response) => {
+      if (response.data.driver) {
+        router.push({
+          name: "standby",
+        });
+      } else {
+        router.push({
+          name: "driver",
+        });
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching driver status:", error);
+    });
 };
 </script>
+
 <template>
   <div class="pt-16">
     <h1 class="text-3xl font-semibold mb-4">Ride share app</h1>
@@ -38,4 +55,5 @@ const handleStartDriving = () => {
     </div>
   </div>
 </template>
+
 <style></style>
