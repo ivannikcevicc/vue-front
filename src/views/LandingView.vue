@@ -1,4 +1,12 @@
-<script setup></script>
+<script setup>
+import { useRouter } from "vue-router";
+const router = useRouter();
+const handleFindARide = () => {
+  router.push({
+    name: "location",
+  });
+};
+</script>
 <template>
   <div class="pt-16">
     <h1 class="text-3xl font-semibold mb-4">Ride share app</h1>
@@ -8,15 +16,12 @@
       <div class="bg-white px-4 py-5 sm:p-6">
         <div class="flex justify-between">
           <button
-            type="submit"
-            @submit.prevent="handleLogin"
             class="rounded-md border border-transparent bg-black py-2 px-4 text-sm font-medium text-white"
           >
             Start driving
           </button>
           <button
-            type="submit"
-            @submit.prevent="handleLogin"
+            @click="handleFindARide"
             class="rounded-md border border-transparent bg-black py-2 px-4 text-sm font-medium text-white"
           >
             Find a ride
