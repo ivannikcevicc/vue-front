@@ -15,6 +15,7 @@ app.use(router);
 
 app.use(VueGoogleMaps, {
   load: {
+    //https://www.youtube.com/watch?v=iFOEU6YNBzw 2:13:33
     key: "AIzaSyCAqdwRPpTtDGc6lWZKlSO0EPgkAKRo-8o",
     libraries: "places",
   },
